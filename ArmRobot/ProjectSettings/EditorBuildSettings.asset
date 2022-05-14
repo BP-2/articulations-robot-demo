@@ -6,9 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/RobotWithHand.unity
-    guid: ba85471f9074a496ca00dc9fb80078d0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/MovingHandSolo.unity
-    guid: d7c40e5832a6949f5b3a1ea2adb7fdc7
-  m_configObjects: {}
+    path: Assets/Scenes/ArticulationRobot.unity
+    guid: 94fa6bc4b68eb4fd0b73c109f3ff4e02
+  - enabled: 0
+    path: Assets/Oculus/SampleFramework/Usage/Passthrough/Scenes/PassthroughHands.unity
+    guid: c94e480e4a6da614693c0cd3372e2d2d
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: e6a69ff54e40e452593376cd5a844dab,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 7dcda5ec2b47245189af0b2e0a396c92,
+      type: 2}
