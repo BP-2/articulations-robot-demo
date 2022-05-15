@@ -6,7 +6,7 @@ public class FollowScript : MonoBehaviour
 {
     [SerializeField]
     public GameObject person;
-    private Vector3 offset = new Vector3(0,.5,.7);
+    private Vector3 offset = new Vector3(0,0,.7f);
     // Update is called once per frame
     void Update()
     {
