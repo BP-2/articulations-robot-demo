@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Base01
+  - leftCont
+  - rightCont
   layers:
   - Default
   - TransparentFX
