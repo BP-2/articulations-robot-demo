@@ -9,11 +9,18 @@ public class buttonUI : MonoBehaviour
     RobotController robotController;
 
     public double timeSet;
+
     public int joint;
+
+    double startTime = 1;
+
+    public bool on = true;
+
     void Start()
     {
         robotController = robot.GetComponent<RobotController>();
     }
+
     /**
     public void onButtonClick()
     {
@@ -22,11 +29,11 @@ public class buttonUI : MonoBehaviour
         robotController.RotateJoint(1, RotationDirection.Positive);
         StartCoroutine(Move());
     } **/
-
     void OnTriggerEnter(Collider c)
     {
         RotationDirection direction = RotationDirection.Positive;
-        if(c.gameObject.tag == "leftCont"){
+        if (c.gameObject.tag == "leftCont")
+        {
             direction = RotationDirection.Negative;
         }
         robotController = robot.GetComponent<RobotController>();
@@ -35,6 +42,7 @@ public class buttonUI : MonoBehaviour
 
     void Update()
     {
+        ///StartCoroutine(MoveCube());
         /**
         robotController.RotateJoint(1, RotationDirection.Positive);
         robotController.RotateJoint(0, RotationDirection.Positive);
@@ -44,11 +52,55 @@ public class buttonUI : MonoBehaviour
     private IEnumerator Move(RotationDirection direction)
     {
         double timeLeft = timeSet;
-        while (timeLeft>0)
+        while (timeLeft > 0)
         {
-            robotController.RotateJoint(joint, direction);
-            timeLeft-= Time.deltaTime;
+            robotController.RotateJoint (joint, direction);
+            timeLeft -= Time.deltaTime;
             yield return null;
+        }
+    }
+    public void startCube(){
+        StartCoroutine(MoveCube());
+    }
+    private IEnumerator MoveCube()
+    {
+        on = true;
+        while (on)
+        {
+            RotationDirection positive = RotationDirection.Positive;
+            RotationDirection negative = RotationDirection.Negative;
+            startTime = .4;
+
+            while (startTime > 0)
+            {
+                robotController.RotateJoint(1, positive);
+                startTime -= Time.deltaTime;
+                yield return null;
+            }
+            startTime = .3;
+            while (startTime > 0)
+            {
+                robotController.RotateJoint(2, negative);
+                startTime -= Time.deltaTime;
+                yield return null;
+            }
+            startTime = .775;
+            while (startTime > 0)
+            {
+                robotController.RotateJoint(3, negative);
+                startTime -= Time.deltaTime;
+                yield return null;
+            }
+            
+            startTime = .2;
+            while (startTime > 0)
+            {
+                robotController.RotateJoint(1, positive);
+                startTime -= Time.deltaTime;
+                yield return null;
+            }
+            
+            on = false;
         }
     }
 }
