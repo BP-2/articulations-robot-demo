@@ -81,8 +81,4 @@ public class PincherController : MonoBehaviour
         fingerBController.UpdateGrip(grip);
     }
 
-
-
-
-
 }

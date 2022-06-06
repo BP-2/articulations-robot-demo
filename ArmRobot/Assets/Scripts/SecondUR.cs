@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class buttonUI : MonoBehaviour
+public class SecondUR : MonoBehaviour
 {
-    public GameObject robot;
+    public GameObject Menu;
+
+    public GameObject UR;
+
+    private bool active = false;
 
     RobotController robotController;
 
@@ -12,28 +16,28 @@ public class buttonUI : MonoBehaviour
 
     public GameObject hand;
 
-    public double timeSet;
-
-    public int joint;
-
-    double startTime = 1;
-
     public bool on;
 
     void Start()
     {
-        robotController = robot.GetComponent<RobotController>();
+        robotController = UR.GetComponent<RobotController>();
         pincherController = hand.GetComponent<PincherController>();
     }
 
-    /**
-    public void onButtonClick()
+    public void createNDestroy()
     {
-        robotController = robot.GetComponent<RobotController>();
+        if (!active)
+        {
+            Menu.SetActive(true);
+            UR.SetActive(true);
+            active = true;
+            return;
+        }
+        Menu.SetActive(false);
+        UR.SetActive(false);
+        active = false;
+    }
 
-        robotController.RotateJoint(1, RotationDirection.Positive);
-        StartCoroutine(Move());
-    } **/
     void OnTriggerEnter(Collider c)
     {
         if (on)
@@ -41,33 +45,7 @@ public class buttonUI : MonoBehaviour
             startCube();
             return;
         }
-        RotationDirection direction = RotationDirection.Positive;
-        if (c.gameObject.tag == "leftCont")
-        {
-            direction = RotationDirection.Negative;
-        }
-        robotController = robot.GetComponent<RobotController>();
-        StartCoroutine(Move(direction));
-    }
-
-    void Update()
-    {
-        ///StartCoroutine(MoveCube());
-        /**
-        robotController.RotateJoint(1, RotationDirection.Positive);
-        robotController.RotateJoint(0, RotationDirection.Positive);
-        robotController.RotateJoint(2, RotationDirection.Positive); **/
-    }
-
-    private IEnumerator Move(RotationDirection direction)
-    {
-        double timeLeft = timeSet;
-        while (timeLeft > 0)
-        {
-            robotController.RotateJoint (joint, direction);
-            timeLeft -= Time.deltaTime;
-            yield return null;
-        }
+        createNDestroy();
     }
 
     public void startCube()
@@ -81,7 +59,7 @@ public class buttonUI : MonoBehaviour
         {
             RotationDirection positive = RotationDirection.Positive;
             RotationDirection negative = RotationDirection.Negative;
-            startTime = .4;
+            double startTime = .4;
 
             while (startTime > 0)
             {
@@ -104,52 +82,53 @@ public class buttonUI : MonoBehaviour
                 yield return null;
             }
 
-            startTime = .21;
+            startTime = .0002;
             while (startTime > 0)
             {
                 robotController.RotateJoint(1, positive);
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = 2;
+            startTime = 3;
             while (startTime > 0)
             {
                 pincherController.gripState = GripState.Closing;
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = 1.15;
+            startTime = 1.2;
             while (startTime > 0)
             {
                 robotController.RotateJoint(1, negative);
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = .8;
+            startTime = .6;
             while (startTime > 0)
             {
                 robotController.RotateJoint(2, positive);
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = 1.45;
+            startTime = .4;
             while (startTime > 0)
             {
                 robotController.RotateJoint(3, positive);
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = .8;
+            startTime = 1.3;
             while (startTime > 0)
             {
                 pincherController.gripState = GripState.Opening;
                 startTime -= Time.deltaTime;
                 yield return null;
             }
-            startTime = 1.5;
-            while(startTime>0){
+            startTime = 1.2;
+            while (startTime > 0)
+            {
                 robotController.RotateJoint(1, positive);
-                startTime-=Time.deltaTime;
+                startTime -= Time.deltaTime;
                 yield return null;
             }
             on = false;
